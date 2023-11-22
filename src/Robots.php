@@ -38,9 +38,9 @@ class Robots
         $robotsTxt = $this->robotsTxt ?? RobotsTxt::create($this->createRobotsUrl($url));
 
         return
-            $robotsTxt->allows($url, $userAgent)
-            && RobotsMeta::readFrom($url)->mayIndex()
-            && RobotsHeaders::readFrom($url)->mayIndex();
+            $robotsTxt->allows($url, $userAgent);
+        // && RobotsMeta::readFrom($url)->mayIndex()
+        // && RobotsHeaders::readFrom($url)->mayIndex();
     }
 
     public function mayFollowOn(string $url): bool
@@ -52,7 +52,7 @@ class Robots
 
     protected function createRobotsUrl(string $url): string
     {
-        $robotsUrl = parse_url($url, PHP_URL_SCHEME).'://'.parse_url($url, PHP_URL_HOST);
+        $robotsUrl = parse_url($url, PHP_URL_SCHEME) . '://' . parse_url($url, PHP_URL_HOST);
 
         if ($port = parse_url($url, PHP_URL_PORT)) {
             $robotsUrl .= ":{$port}";
